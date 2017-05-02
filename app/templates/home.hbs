@@ -9,8 +9,8 @@
         {{/title.text}}
       {{/card.title}}
       {{#card.actions}}
-        {{#paper-button raised=true }}NEW GAME{{/paper-button}}
-        {{#paper-button raised=true }}JOIN GAME{{/paper-button}}
+        {{#paper-button raised=true onClick=(action "createNewGame")}}NEW GAME{{/paper-button}}
+        {{#paper-button raised=true onClick=(action "joinGame")}}JOIN GAME{{/paper-button}}
       {{/card.actions}}
     {{/paper-card}}
   </div>
