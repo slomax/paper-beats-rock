@@ -1,19 +1,20 @@
-{{#each model as |rental|}}
-  <article class="listing">
-    <h3>{{rental.title}}</h3>
-    <div class="detail owner">
-      <span>Owner:</span> {{rental.owner}}
-    </div>
-    <div class="detail type">
-      <span>Type:</span> {{rental.type}}
-    </div>
-    <div class="detail location">
-      <span>Location:</span> {{rental.city}}
-    </div>
-    <div class="detail bedrooms">
-      <span>Number of bedrooms:</span> {{rental.bedrooms}}
-    </div>
-  </article>
-{{/each}}
+<div class="layout-row layout-xs-column">
+  <div class="layout-column flex-xs flex-gt-xs-15"></div>
+  <div class="layout-column flex-xs flex-gt-xs-70">
+    {{#paper-card as |card|}}
+      {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}PAPER BEATS ROCK{{/text.headline}}
+          {{#text.subhead}}It's rock, paper, scissors.{{/text.subhead}}
+        {{/title.text}}
+      {{/card.title}}
+      {{#card.actions}}
+        {{#paper-button raised=true }}NEW GAME{{/paper-button}}
+        {{#paper-button raised=true }}JOIN GAME{{/paper-button}}
+      {{/card.actions}}
+    {{/paper-card}}
+  </div>
+  <div class="layout-column flex-xs flex-gt-xs-15"></div>
+</div>
 
 {{outlet}}

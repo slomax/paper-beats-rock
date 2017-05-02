@@ -2,6 +2,15 @@
 
 module.exports = function(environment) {
   var ENV = {
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self' 'unsafe-inline'",
+      'style-src': "'self' 'unsafe-inline' https://fonts.googleapis.com",
+      'font-src': "'self' fonts.gstatic.com",
+      'connect-src': "'self'",
+      'img-src': "'self' data:",
+      'media-src': "'self'"
+    },
     firebase: {
       apiKey: "AIzaSyDOzqR-7UxHfVWXYCBhHHc9K-idMrvtwxc",
       authDomain: "paper-beats-rock-c2a9e.firebaseapp.com",
