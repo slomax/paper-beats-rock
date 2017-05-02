@@ -2,6 +2,14 @@
 
 module.exports = function(environment) {
   var ENV = {
+    firebase: {
+      apiKey: "AIzaSyDOzqR-7UxHfVWXYCBhHHc9K-idMrvtwxc",
+      authDomain: "paper-beats-rock-c2a9e.firebaseapp.com",
+      databaseURL: "https://paper-beats-rock-c2a9e.firebaseio.com",
+      projectId: "paper-beats-rock-c2a9e",
+      storageBucket: "paper-beats-rock-c2a9e.appspot.com",
+      messagingSenderId: "720708636101"
+    },
     modulePrefix: 'paper-beats-rock',
     environment: environment,
     rootURL: '/',
