@@ -4,10 +4,10 @@ export default Ember.Controller.extend({
   actions: {
     createNewGame() {
       var newGame = this.store.createRecord('game', {
-
+        playerOneName: 'Sean'
       });
       newGame.save().then((response) => {
-        //redirect to game
+        this.transitionToRoute('game', response.get('id'));
       });
     },
     joinGame() {
