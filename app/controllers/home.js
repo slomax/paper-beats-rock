@@ -3,10 +3,12 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     createNewGame() {
-      var newPost = this.store.createRecord('game', {
-        title: 'EmberFire is flaming hot!'
+      var newGame = this.store.createRecord('game', {
+
       });
-      newPost.save();
+      newGame.save().then((response) => {
+        //redirect to game
+      });
     },
     joinGame() {
       console.log('join');
