@@ -1,20 +1,14 @@
-<div class="layout-row layout-xs-column">
-  <div class="layout-column flex-xs flex-gt-xs-15"></div>
-  <div class="layout-column flex-xs flex-gt-xs-70">
-    {{#paper-card as |card|}}
-      {{#card.title as |title|}}
-        {{#title.text as |text|}}
-          {{#text.headline}}PAPER BEATS ROCK{{/text.headline}}
-          {{#text.subhead}}It's rock, paper, scissors.{{/text.subhead}}
-        {{/title.text}}
-      {{/card.title}}
-      {{#card.actions}}
-        {{#paper-button raised=true onClick=(action "createNewGame")}}NEW GAME{{/paper-button}}
-        {{#paper-button raised=true onClick=(action "joinGame")}}JOIN GAME{{/paper-button}}
-      {{/card.actions}}
-    {{/paper-card}}
-  </div>
-  <div class="layout-column flex-xs flex-gt-xs-15"></div>
-</div>
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}PAPER BEATS ROCK{{/text.headline}}
+      {{#text.subhead}}It's rock, paper, scissors.{{/text.subhead}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.actions}}
+    {{#paper-button raised=true onClick=(action "createNewGame")}}NEW GAME{{/paper-button}}
+    {{#paper-button raised=true onClick=(action "joinGame")}}JOIN GAME{{/paper-button}}
+  {{/card.actions}}
+{{/paper-card}}
 
 {{outlet}}

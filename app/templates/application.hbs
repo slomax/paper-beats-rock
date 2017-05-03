@@ -1,1 +1,17 @@
-{{outlet}}
+{{#paper-toolbar}}
+  {{#paper-toolbar-tools}}
+    {{#link-to "home"}}
+      {{#paper-button}}Home{{/paper-button}}
+    {{/link-to}}
+    {{#link-to "about"}}
+      {{#paper-button}}About{{/paper-button}}
+    {{/link-to}}
+  {{/paper-toolbar-tools}}
+{{/paper-toolbar}}
+<div class="layout-row layout-xs-column">
+  <div class="layout-column flex-xs flex-gt-xs-15"></div>
+  <div class="layout-column flex-xs flex-gt-xs-70">
+  {{outlet}}
+  </div>
+  <div class="layout-column flex-xs flex-gt-xs-15"></div>
+</div>

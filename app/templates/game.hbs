@@ -1,1 +1,15 @@
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}Get ready to play, {{model.playerOneName}}{{/text.headline}}
+      {{#text.subhead}}It's rock, paper, scissors.{{/text.subhead}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.actions}}
+    {{#paper-button raised=true}}ROCK{{/paper-button}}
+    {{#paper-button raised=true}}PAPER{{/paper-button}}
+    {{#paper-button raised=true}}SCISSORS{{/paper-button}}
+  {{/card.actions}}
+{{/paper-card}}
+
 {{outlet}}

@@ -1,2 +1,13 @@
-Sean made this!
+{{#paper-card as |card|}}
+  {{#card.title as |title|}}
+    {{#title.text as |text|}}
+      {{#text.headline}}About{{/text.headline}}
+      {{#text.subhead}}Sean Lomax{{/text.subhead}}
+    {{/title.text}}
+  {{/card.title}}
+  {{#card.actions}}
+    {{#paper-button raised=true onClick=(action "createNewGame")}}NEW GAME{{/paper-button}}
+    {{#paper-button raised=true onClick=(action "joinGame")}}JOIN GAME{{/paper-button}}
+  {{/card.actions}}
+{{/paper-card}}
 {{outlet}}
