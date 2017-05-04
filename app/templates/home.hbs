@@ -6,31 +6,23 @@
     {{/title.text}}
   {{/card.title}}
   {{#card.actions}}
-    {{#paper-button raised=true onClick=(action "showNameDialog")}}NEW GAME{{/paper-button}}
-    {{#paper-button raised=true onClick=(action "joinGame")}}JOIN GAME{{/paper-button}}
+    {{#paper-button raised=true onClick=(action "createNewGame")}}NEW GAME{{/paper-button}}
+    {{#paper-button raised=true onClick=(action "showGameIdDialog")}}JOIN GAME{{/paper-button}}
   {{/card.actions}}
 {{/paper-card}}
-{{#if model.showNameDialog}}
+{{#if showGameIdDialog}}
   {{#paper-dialog fullscreen=fullscreen origin=dialogOrigin}}
     {{#paper-dialog-content}}
-      <h2 class="md-title">What's your name?</h2>
-
-      {{paper-input placeholder="username" autofocus=true value=name onChange=(action (mut name))}}
-
+      <h2 class="md-title">Enter game id:</h2>
+      {{paper-input placeholder="game id" autofocus=true value=gameId onChange=(action (mut gameId))}}
     {{/paper-dialog-content}}
 
     {{#paper-dialog-actions class="layout-row"}}
       <span class="flex"></span>
-      {{#if model.joiningGame }}
-        {{#link-to "home"}}
-          {{#paper-button onClick=(action "resetDialog")}}Never mind{{/paper-button}}
-        {{/link-to}}
+        {{#paper-button onClick=(action "resetDialog")}}Never mind{{/paper-button}}
         {{#paper-button primary=true onClick=(action "joinGame")}}Join!{{/paper-button}}
-      {{else}}
-        {{#paper-button primary=true onClick=(action "resetDialog") }}Never Mind{{/paper-button}}
-        {{#paper-button primary=true onClick=(action "createNewGame")}}Play!{{/paper-button}}
-      {{/if}}
     {{/paper-dialog-actions}}
   {{/paper-dialog}}
 {{/if}}
+
 {{outlet}}
