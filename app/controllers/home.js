@@ -1,17 +1,34 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+
+  clearName() {
+    this.set('name', '');
+  },
+
+  hideNameDialog() {
+    this.set('showNameDialog', false);
+  },
+
   actions: {
     createNewGame() {
       var newGame = this.store.createRecord('game', {
-        playerOneName: 'Sean'
+        playerOneName: this.get('name')
       });
       newGame.save().then((response) => {
+        this.send('resetDialog');
         this.transitionToRoute('game', response.get('id'));
       });
     },
     joinGame() {
       console.log('join');
+    },
+    showNameDialog() {
+      this.set('showNameDialog', true);
+    },
+    resetDialog() {
+      this.clearName();
+      this.hideNameDialog();
     }
   }
 });
