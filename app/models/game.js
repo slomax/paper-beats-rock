@@ -58,5 +58,10 @@ export default DS.Model.extend({
   isGameStarted() {
     return this.get('gameStarted');
   },
+  bothPlayersExist() {
+    const playerOneName = this.getPlayerOneName(),
+          playerTwoName = this.getPlayerTwoName();
+    return playerOneName.length > 0 && playerTwoName.length > 0;
+  }
 
 });

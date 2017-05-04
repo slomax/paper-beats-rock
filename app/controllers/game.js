@@ -33,9 +33,7 @@ export default Ember.Controller.extend({
 
   saveGameRecordWithNewStatus() {
     const game = this.getGameRecord(),
-          playerOneName = game.getPlayerOneName(),
-          playerTwoName = game.getPlayerTwoName(),
-          gameShouldStart = playerOneName.length > 0 && playerTwoName.length > 0;
+          gameShouldStart = game.bothPlayersExist();
     game.setGameHasStarted(gameShouldStart);
     game.save();
   },
