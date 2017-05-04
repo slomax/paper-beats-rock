@@ -10,16 +10,15 @@ export default Ember.Controller.extend({
     joinGame() {
       const game = this.getGameRecord(),
         gameIsStarted = game.isGameStarted();
-      debugger;
       if(!gameIsStarted) {
         this.saveGameRecordWithNewPlayer();
+        this.resetNameDialog();
       } else {
         //reject
       }
     },
-    resetNameDialog() {
-      this.clearUsername();
-      this.hideNameDialog();
+    closeDialog() {
+      this.resetNameDialog();
     }
   },
 
@@ -42,6 +41,11 @@ export default Ember.Controller.extend({
 
   getGameRecord() {
     return this.get('model');
+  },
+
+  resetNameDialog() {
+    this.clearUsername();
+    this.hideNameDialog();
   },
 
   clearUsername() {
