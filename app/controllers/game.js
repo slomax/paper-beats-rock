@@ -9,9 +9,9 @@ export default Ember.Controller.extend({
   actions: {
     joinGame() {
       const game = this.getGameRecord(),
-            gameHasStarted = game.get('gameHasStarted');
+        gameIsStarted = game.isGameStarted();
       debugger;
-      if(!gameHasStarted) {
+      if(!gameIsStarted) {
         this.saveGameRecordWithNewPlayer();
       } else {
         //reject

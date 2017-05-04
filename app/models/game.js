@@ -8,7 +8,7 @@ export default DS.Model.extend({
   playerOneChoice: DS.attr('string'),
   playerTwoChoice: DS.attr('string'),
   timer: DS.attr('number'),
-  gameHasStarted: DS.attr('boolean'),
+  gameStarted: DS.attr('boolean'),
 
   setPlayerOneName(playerOneName) {
     this.set('playerOneName', playerOneName);
@@ -25,7 +25,7 @@ export default DS.Model.extend({
   setPlayerOneChoice(playerOneChoice) {
     this.set('playerOneChoice', playerOneChoice);
   },
-  setPlayerTwoChoice(playerTwoChoice) {
+  setGameStarted(playerTwoChoice) {
     this.set('playerTwoChoice', playerTwoChoice);
   },
   setTimer(timer) {
@@ -55,8 +55,8 @@ export default DS.Model.extend({
   getTimer() {
     return this.get('timer');
   },
-  getGameHasStarted() {
-    return this.get('gameHasStarted');
+  isGameStarted() {
+    return this.get('gameStarted');
   },
 
 });
