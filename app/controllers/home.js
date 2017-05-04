@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const NEW_GAME_CONFIG = {
-  playerOneName: 'sean',
+  playerOneName: '',
   playerTwoName: '',
   playerOneWins: 0,
   playerTwoWins: 0,
