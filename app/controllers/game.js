@@ -16,6 +16,10 @@ export default Ember.Controller.extend({
       } else {
         //reject
       }
+    },
+    resetNameDialog() {
+      this.clearUsername();
+      this.hideNameDialog();
     }
   },
 
@@ -38,6 +42,10 @@ export default Ember.Controller.extend({
 
   getGameRecord() {
     return this.get('model');
+  },
+
+  clearUsername() {
+    this.set('username', '');
   },
 
   hideNameDialog() {

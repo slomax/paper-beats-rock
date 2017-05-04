@@ -48,7 +48,7 @@
     {{#paper-dialog-actions class="layout-row"}}
       <span class="flex"></span>
         {{#link-to "home"}}
-          {{#paper-button}}Never mind{{/paper-button}}
+          {{#paper-button onClick=(action "resetNameDialog")}}Never mind{{/paper-button}}
         {{/link-to}}
         {{#paper-button primary=true onClick=(action "joinGame")}}Join!{{/paper-button}}
     {{/paper-dialog-actions}}
