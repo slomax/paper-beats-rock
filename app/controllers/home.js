@@ -29,7 +29,7 @@ export default Ember.Controller.extend({
   },
 
   createNewGameRecord() {
-    this.store.createRecord('game');
+    return this.store.createRecord('game');
   },
 
   redirectToGame(game) {
