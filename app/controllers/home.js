@@ -1,5 +1,16 @@
 import Ember from 'ember';
 
+const NEW_GAME_CONFIG = {
+  playerOneName: 'sean',
+  playerTwoName: '',
+  playerOneWins: 0,
+  playerTwoWins: 0,
+  playerOneChoice: '',
+  playerTwoChoice: '',
+  timer: 0,
+  gameHasStarted: false
+}
+
 export default Ember.Controller.extend({
 
   actions: {
@@ -13,7 +24,7 @@ export default Ember.Controller.extend({
 
     joinGame() {
       const gameId = this.get('gameId');
-      this.retrieveGameRecordById().then((game) => {
+      this.retrieveGameRecordById(gameId).then((game) => {
         this.redirectToGame(game);
       });
     },
@@ -29,7 +40,7 @@ export default Ember.Controller.extend({
   },
 
   createNewGameRecord() {
-    return this.store.createRecord('game');
+    return this.store.createRecord('game', NEW_GAME_CONFIG);
   },
 
   redirectToGame(game) {
