@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
   },
 
   hideNameDialog() {
-    this.set('showNameDialog', false);
+    this.set('model.showNameDialog', false);
   },
 
   actions: {
@@ -24,7 +24,7 @@ export default Ember.Controller.extend({
       console.log('join');
     },
     showNameDialog() {
-      this.set('showNameDialog', true);
+      this.set('model.showNameDialog', true);
     },
     resetDialog() {
       this.clearName();

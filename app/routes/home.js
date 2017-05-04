@@ -1,9 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model() {
+  model(params) {
+    const gameId = params['gameId'];
+    const joiningGame = gameId ? true : false;
+
     return {
-      showNameDialog: false
+      showNameDialog: joiningGame,
+      joiningGame: joiningGame
     }
   }
 });
