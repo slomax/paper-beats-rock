@@ -1,10 +1,11 @@
 {{#paper-card as |card|}}
   {{#card.title as |title|}}
     {{#title.text as |text|}}
+      {{username}}
       {{#if showNameDialog}}
         {{#text.headline}}Get ready to play!{{/text.headline}}
       {{else}}
-        {{#text.headline}}Get ready to play, {{username}}{{/text.headline}}
+        {{#text.headline}}Get ready to play, {{currentPlayerName}}{{/text.headline}}
       {{/if}}
       {{#text.subhead}}It's rock, paper, scissors.{{/text.subhead}}
     {{/title.text}}
@@ -45,7 +46,7 @@
     {{#paper-dialog-content}}
       <h2 class="md-title">What's your name?</h2>
 
-      {{paper-input placeholder="username" autofocus=true value=username onChange=(action (mut username))}}
+      {{paper-input placeholder="username" autofocus=true value=usernameTextFieldValue onChange=(action (mut usernameTextFieldValue))}}
 
     {{/paper-dialog-content}}
 

@@ -2,14 +2,16 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  username: '',
+  usernameTextFieldValue: '',
   showNameDialog: true,
   bothPlayersArePresent: false,
+  currentPlayerName: '',
 
   actions: {
     joinGame() {
       this.saveGameRecordWithNewPlayer();
       this.saveGameRecordWithNewStatus();
+      this.saveUserNameTextAsCurrentPlayerName();
       this.resetNameDialog();
     },
     closeDialog() {
@@ -19,7 +21,7 @@ export default Ember.Controller.extend({
 
   saveGameRecordWithNewPlayer() {
     const game = this.getGameRecord(),
-          newPlayerName = this.get('username');
+          newPlayerName = this.get('usernameTextFieldValue');
     if(this.gameHasFirstPlayer()) {
       game.setPlayerTwoName(newPlayerName);
       game.setGameHasStarted(true);
@@ -47,13 +49,18 @@ export default Ember.Controller.extend({
     return this.get('model');
   },
 
+  saveUserNameTextAsCurrentPlayerName() {
+    const usernameTextFieldValue = this.get('usernameTextFieldValue');
+    this.set('currentPlayerName', usernameTextFieldValue);
+  },
+
   resetNameDialog() {
-    this.clearUsername();
+    this.clearUsernameTextFieldValue();
     this.hideNameDialog();
   },
 
-  clearUsername() {
-    this.set('username', '');
+  clearUsernameTextFieldValue() {
+    this.set('usernameTextFieldValue', '');
   },
 
   hideNameDialog() {
