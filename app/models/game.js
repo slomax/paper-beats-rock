@@ -8,5 +8,55 @@ export default DS.Model.extend({
   playerOneChoice: DS.attr('string'),
   playerTwoChoice: DS.attr('string'),
   timer: DS.attr('number'),
-  gameHasStarted: DS.attr('boolean')
+  gameHasStarted: DS.attr('boolean'),
+
+  setPlayerOneName(playerOneName) {
+    this.set('playerOneName', playerOneName);
+  },
+  setPlayerTwoName(playerTwoName) {
+    this.set('playerTwoName', playerTwoName);
+  },
+  setPlayerOneWins(playerOneWins) {
+    this.set('playerOneWins', playerOneWins);
+  },
+  setPlayerTwoWins(playerTwoWins) {
+    this.set('playerTwoWins', playerTwoWins);
+  },
+  setPlayerOneChoice(playerOneChoice) {
+    this.set('playerOneChoice', playerOneChoice);
+  },
+  setPlayerTwoChoice(playerTwoChoice) {
+    this.set('playerTwoChoice', playerTwoChoice);
+  },
+  setTimer(timer) {
+    this.set('timer', timer);
+  },
+  setGameHasStarted(gameHasStarted) {
+    this.set('gameHasStarted', gameHasStarted);
+  },
+  getPlayerOneName() {
+    return this.get('playerOneName');
+  },
+  getPlayerTwoName() {
+    return this.get('playerTwoName');
+  },
+  getPlayerOneWins() {
+    return this.get('playerOneWins');
+  },
+  getPlayerTwoWins() {
+    return this.get('playerTwoWins');
+  },
+  getPlayerOneChoice() {
+    return this.get('playerOneChoice');
+  },
+  getPlayerTwoChoice() {
+    return this.get('playerTwoChoice');
+  },
+  getTimer() {
+    return this.get('timer');
+  },
+  getGameHasStarted() {
+    return this.get('gameHasStarted');
+  },
+
 });
