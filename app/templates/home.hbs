@@ -21,10 +21,13 @@
 
     {{#paper-dialog-actions class="layout-row"}}
       <span class="flex"></span>
-      {{#paper-button primary=true onClick=(action "resetDialog") }}Never Mind{{/paper-button}}
       {{#if model.joiningGame }}
+        {{#link-to "home"}}
+          {{#paper-button onClick=(action "resetDialog")}}Never mind{{/paper-button}}
+        {{/link-to}}
         {{#paper-button primary=true onClick=(action "joinGame")}}Join!{{/paper-button}}
       {{else}}
+        {{#paper-button primary=true onClick=(action "resetDialog") }}Never Mind{{/paper-button}}
         {{#paper-button primary=true onClick=(action "createNewGame")}}Play!{{/paper-button}}
       {{/if}}
     {{/paper-dialog-actions}}

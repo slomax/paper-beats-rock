@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
 
   actions: {
     createNewGame() {
-      var newGame = this.store.createRecord('game', {
+      const newGame = this.store.createRecord('game', {
         playerOneName: this.get('name')
       });
       newGame.save().then((response) => {
@@ -21,7 +21,13 @@ export default Ember.Controller.extend({
       });
     },
     joinGame() {
-      console.log('join');
+      this.store.find('game', this.get('model.gameId')).then((game) => {
+        game.set('playerTwoName', this.get('name'));
+        game.save().then((response) => {
+          this.send('resetDialog');
+          this.transitionToRoute('game', response.get('id'));
+        });
+      });
     },
     showNameDialog() {
       this.set('model.showNameDialog', true);

@@ -7,7 +7,8 @@ export default Ember.Route.extend({
 
     return {
       showNameDialog: joiningGame,
-      joiningGame: joiningGame
+      joiningGame: joiningGame,
+      gameId: gameId
     }
   }
 });
