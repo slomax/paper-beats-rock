@@ -32,7 +32,7 @@ export default DS.Model.extend({
     this.set('timer', timer);
   },
   setGameHasStarted(gameHasStarted) {
-    this.set('gameHasStarted', gameHasStarted);
+    this.set('gameStarted', gameHasStarted);
   },
   getPlayerOneName() {
     return this.get('playerOneName');

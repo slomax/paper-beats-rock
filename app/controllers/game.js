@@ -8,14 +8,9 @@ export default Ember.Controller.extend({
 
   actions: {
     joinGame() {
-      const game = this.getGameRecord(),
-        gameIsStarted = game.isGameStarted();
-      if(!gameIsStarted) {
-        this.saveGameRecordWithNewPlayer();
-        this.resetNameDialog();
-      } else {
-        //reject
-      }
+      this.saveGameRecordWithNewPlayer();
+      this.saveGameRecordWithNewStatus();
+      this.resetNameDialog();
     },
     closeDialog() {
       this.resetNameDialog();
@@ -31,6 +26,15 @@ export default Ember.Controller.extend({
     } else {
       game.setPlayerOneName(newPlayerName);
     }
+    game.save();
+  },
+
+  saveGameRecordWithNewStatus() {
+    const game = this.getGameRecord(),
+          playerOneName = game.getPlayerOneName(),
+          playerTwoName = game.getPlayerTwoName(),
+          gameShouldStart = playerOneName.length > 0 && playerTwoName.length > 0;
+    game.setGameHasStarted(gameShouldStart);
     game.save();
   },
 
