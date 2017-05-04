@@ -2,39 +2,49 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  clearName() {
-    this.set('name', '');
-  },
-
-  hideNameDialog() {
-    this.set('model.showNameDialog', false);
-  },
-
   actions: {
+
     createNewGame() {
-      const newGame = this.store.createRecord('game', {
-        playerOneName: this.get('name')
-      });
-      newGame.save().then((response) => {
-        this.send('resetDialog');
-        this.transitionToRoute('game', response.get('id'));
+      const newGameRecord = this.createNewGameRecord();
+      newGameRecord.save().then((game) => {
+        this.redirectToGame(game)
       });
     },
+
     joinGame() {
-      this.store.find('game', this.get('model.gameId')).then((game) => {
-        game.set('playerTwoName', this.get('name'));
-        game.save().then((response) => {
-          this.send('resetDialog');
-          this.transitionToRoute('game', response.get('id'));
-        });
+      const gameId = this.get('gameId');
+      this.retrieveGameRecordById().then((game) => {
+        this.redirectToGame(game);
       });
     },
-    showNameDialog() {
-      this.set('model.showNameDialog', true);
+
+    showGameIdDialog() {
+      this.set('showGameIdDialog', true);
     },
+
     resetDialog() {
-      this.clearName();
-      this.hideNameDialog();
+      this.clearGameId();
+      this.hideGameIdDialog();
     }
+  },
+
+  createNewGameRecord() {
+    this.store.createRecord('game');
+  },
+
+  redirectToGame(game) {
+    this.transitionToRoute('game', game.get('id'))
+  },
+
+  retrieveGameRecordById(gameId) {
+    return this.store.find('game', gameId);
+  },
+
+  clearGameId() {
+    this.set('gameId', '');
+  },
+
+  hideGameIdDialog() {
+    this.set('showGameIdDialog', false);
   }
 });
