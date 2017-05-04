@@ -5,11 +5,53 @@
       {{#text.subhead}}It's rock, paper, scissors.{{/text.subhead}}
     {{/title.text}}
   {{/card.title}}
+  {{#card.content}}
+    <div class="layout-row">
+      <div class="layout-column flex" style="text-align:left">
+        {{#if model.playerOneName}}
+          {{model.playerOneName}}
+        {{else}}
+          Waiting for player one!
+        {{/if}}
+      </div>
+      <div class="layout-column flex" style="text-align:center">
+        {{#if status}}
+          {{status}}
+        {{else}}
+          VS
+        {{/if}}
+      </div>
+      <div class="layout-column flex" style="text-align:right">
+        {{#if model.playerTwoName}}
+          {{model.playerTwoName}}
+        {{else}}
+          Waiting for player two!
+        {{/if}}
+      </div>
+    </div>
+  {{/card.content}}
   {{#card.actions}}
     {{#paper-button raised=true}}ROCK{{/paper-button}}
     {{#paper-button raised=true}}PAPER{{/paper-button}}
     {{#paper-button raised=true}}SCISSORS{{/paper-button}}
   {{/card.actions}}
 {{/paper-card}}
+{{#if showNameDialog }}
+  {{#paper-dialog fullscreen=fullscreen origin=dialogOrigin}}
+    {{#paper-dialog-content}}
+      <h2 class="md-title">What's your name?</h2>
 
+      {{paper-input placeholder="username" autofocus=true value=username onChange=(action (mut username))}}
+
+    {{/paper-dialog-content}}
+
+    {{#paper-dialog-actions class="layout-row"}}
+      <span class="flex"></span>
+        {{#link-to "home"}}
+          {{#paper-button}}Never mind{{/paper-button}}
+        {{/link-to}}
+        {{#paper-button primary=true onClick=(action "joinGame")}}Join!{{/paper-button}}
+    {{/paper-dialog-actions}}
+  {{/paper-dialog}}
+{{/if}}
 {{outlet}}
