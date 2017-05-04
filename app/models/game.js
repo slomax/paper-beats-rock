@@ -8,5 +8,5 @@ export default DS.Model.extend({
   playerOneChoice: DS.attr('string'),
   playerTwoChoice: DS.attr('string'),
   timer: DS.attr('number'),
-  hostUser: DS.attr('number')
+  gameHasStarted: DS.attr('boolean')
 });
