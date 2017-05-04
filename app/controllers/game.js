@@ -4,7 +4,6 @@ export default Ember.Controller.extend({
 
   usernameTextFieldValue: '',
   showNameDialog: true,
-  bothPlayersArePresent: false,
   currentPlayerName: '',
 
   actions: {

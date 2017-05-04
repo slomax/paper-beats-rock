@@ -9,5 +9,15 @@ export default Ember.Route.extend({
     if(gameHasStarted) {
       this.transitionTo('home');
     }
+  },
+  //TODO: This is the quick and dirty solution to ensuring that showNameDialog is always true
+  //when this route is first activated.  I should probably convert 'game' to be a component,
+  //which supposedly has lifecycle hooks I can use to reset whatever values I need.  For now,
+  //this seems to work.
+  setupController(controller, model) {
+    this._super(controller, model);
+    controller.set('showNameDialog', true);
+    controller.set('currentPlayerName', '');
+
   }
 });
