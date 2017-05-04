@@ -3,11 +3,14 @@
     {{#title.text as |text|}}
       {{#text.headline}}About{{/text.headline}}
       {{#text.subhead}}Sean Lomax{{/text.subhead}}
+      I prepared this app for an Ember/Firebase talk to give at the 2017 Nebraska.Code() conference.
+      <br/><br/>
+      I've been a professional software developer since 2009. I am passionate about encouraging developers to think of software development as a craft worthy of continuous improvement. We cannot improve without embracing the fact that we are not perfect!
+      <br/><br/>
+      splomax@gmail.com<br/>
+      @splomax on twitter
     {{/title.text}}
+    {{title.media class="sean-lomax-head" src="/assets/sean.png"}}
   {{/card.title}}
-  {{#card.actions}}
-    {{#paper-button raised=true onClick=(action "createNewGame")}}NEW GAME{{/paper-button}}
-    {{#paper-button raised=true onClick=(action "joinGame")}}JOIN GAME{{/paper-button}}
-  {{/card.actions}}
 {{/paper-card}}
 {{outlet}}
