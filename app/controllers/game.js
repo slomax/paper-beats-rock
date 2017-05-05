@@ -55,6 +55,7 @@ export default Ember.Controller.extend({
     const game = this.getGameRecord();
     if(game.getTimer() === 0) {
       this.set('showStatus', true);
+      this.set('status', 'result!');
     } else {
       this.set('showStatus', false);
     }
@@ -72,11 +73,9 @@ export default Ember.Controller.extend({
       const timerInterval = setInterval(() => {
         const newTimer = game.getTimer() - 1;
         game.setTimer(newTimer);
-        game.save()
+        game.save();
         if(newTimer === 0) {
           clearInterval(timerInterval);
-          this.set('showStatus', true);
-          this.set('status', 'result!');
         }
       }, 1000);
     }
