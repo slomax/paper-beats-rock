@@ -16,6 +16,7 @@ export default Ember.Controller.extend({
   playerOneIsActive: false,
   showStatus: true,
   status: 'VS',
+  showPlayAgainButton: false,
 
   actions: {
     joinGame() {
@@ -28,6 +29,18 @@ export default Ember.Controller.extend({
       const game = this.getGameRecord();
       if(game.isGameStarted()) {
         this.startGame();
+      }
+    },
+    handlePlayAgain() {
+      const game = this.getGameRecord();
+      this.set('showPlayAgainButton', false);
+      this.resetActivePlayerChoice();
+      game.save();
+      if(game.getPlayerOneChoice().length == 0 && game.getPlayerTwoChoice().length === 0) {
+        this.enableInputs();
+        this.setActivePlayerMessage(AWAITING_INPUT);
+      } else {
+        this.setActivePlayerMessage('Waiting for other player.');
       }
     },
     closeDialog() {
@@ -44,6 +57,28 @@ export default Ember.Controller.extend({
     }
   },
 
+  playerOneChoiceChanged: Ember.observer('model.playerOneChoice', function() {
+    const game = this.getGameRecord();
+    if(!this.isPlayerOneActive()) {
+      const playerOneChoice = game.getPlayerOneChoice();
+      if(game.isGameStarted() && playerOneChoice.length === 0  && !this.get('showPlayAgainButton')) {
+        this.enableInputs();
+        this.setActivePlayerMessage(AWAITING_INPUT);
+      }
+    }
+  }),
+
+  playerTwoChoiceChanged: Ember.observer('model.playerTwoChoice', function() {
+    const game = this.getGameRecord();
+    if(this.isPlayerOneActive()) {
+      const playerTwoChoice = game.getPlayerTwoChoice();
+      if(game.isGameStarted() && playerTwoChoice.length === 0 && !this.get('showPlayAgainButton')) {
+        this.enableInputs();
+        this.setActivePlayerMessage(AWAITING_INPUT);
+      }
+    }
+  }),
+
   gameStartedChanged: Ember.observer('model.gameStarted', function() {
     const game = this.getGameRecord();
     if(game.isGameStarted() && this.isPlayerOneActive()) {
@@ -56,11 +91,13 @@ export default Ember.Controller.extend({
     if( game.isGameStarted() && game.getTimer() === 0) {
       this.set('showStatus', true);
       this.updateStatusWithResult();
+      this.set('showPlayAgainButton', true);
     } else {
       this.set('showStatus', false);
     }
   }),
 
+  //TODO: refactor this horrible function
   updateStatusWithResult() {
     const game = this.getGameRecord(),
           playerOneChoice = game.getPlayerOneChoice(),
@@ -151,6 +188,15 @@ export default Ember.Controller.extend({
       this.setPlayerOneMessage(message);
     } else {
       this.setPlayerTwoMessage(message);
+    }
+  },
+
+  resetActivePlayerChoice() {
+    const game = this.getGameRecord();
+    if(this.isPlayerOneActive()) {
+      game.setPlayerOneChoice('');
+    } else {
+      game.setPlayerTwoChoice('');
     }
   },
 

@@ -21,6 +21,7 @@ export default Ember.Route.extend({
     controller.set('inputsDisabled', true);
     controller.set('playerOneIsActive', false);
     controller.set('status', 'VS');
-
+    controller.set('showPlayAgainButton', false);
+    controller.set('showStatus', true);11111
   }
 });

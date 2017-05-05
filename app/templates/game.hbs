@@ -39,6 +39,9 @@
         {{playerOneMessage}}
       </div>
       <div class="layout-column flex" style="text-align:center">
+        {{#if showPlayAgainButton}}
+          {{#paper-button raised=true onClick=(action "handlePlayAgain")}}Play Again{{/paper-button}}
+        {{/if}}
       </div>
       <div class="layout-column flex" style="text-align:right">
         {{playerTwoMessage}}
