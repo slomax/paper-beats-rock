@@ -63,5 +63,10 @@ export default DS.Model.extend({
     const playerOneName = this.getPlayerOneName(),
       playerTwoName = this.getPlayerTwoName();
     return playerOneName.length > 0 && playerTwoName.length > 0;
+  },
+  bothPlayersHaveChosen() {
+    const playerOneChoice = this.getPlayerOneChoice(),
+          playerTwoChoice = this.getPlayerTwoChoice();
+    return playerOneChoice.length > 0 && playerTwoChoice.length > 0;
   }
 });

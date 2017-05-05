@@ -42,19 +42,30 @@ export default Ember.Controller.extend({
     }
   },
 
-  handleChoice(choice) {
-    const game = this.getGameRecord();
-    this.setActivePlayerMessage(choice);
-    this.saveActivePlayerChoice(choice);
-    //start timer and handle timeout
-  },
-
   gameStartedChanged: Ember.observer('model.gameStarted', function() {
     const game = this.getGameRecord();
     if(game.isGameStarted() && this.getPlayerOneIsActive()) {
       this.startGame();
     }
   }),
+
+  handleChoice(choice) {
+    const game = this.getGameRecord();
+    this.disableInputs();
+    this.setActivePlayerMessage(choice);
+    this.saveActivePlayerChoice(choice);
+    if(game.bothPlayersHaveChosen()) {
+      game.setTimer(3);
+      const timerInterval = setInterval(() => {
+        const newTimer = game.getTimer() - 1;
+        game.setTimer(newTimer);
+        game.save()
+        if(newTimer === 0) {
+          clearInterval(timerInterval);
+        }
+      }, 1000);
+    }
+  },
 
   saveActivePlayerChoice(choice) {
     const game = this.getGameRecord();
@@ -151,6 +162,10 @@ export default Ember.Controller.extend({
 
   enableInputs() {
     this.set('inputsDisabled', false);
+  },
+
+  disableInputs() {
+    this.set('inputsDisabled', true);
   }
 
 });

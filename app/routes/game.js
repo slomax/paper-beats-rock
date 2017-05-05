@@ -20,6 +20,7 @@ export default Ember.Route.extend({
     controller.set('currentPlayerName', '');
     controller.set('inputsDisabled', true);
     controller.set('playerOneIsActive', false);
+    controller.set('status', 'VS');
 
   }
 });
