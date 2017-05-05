@@ -63,12 +63,5 @@ export default DS.Model.extend({
     const playerOneName = this.getPlayerOneName(),
       playerTwoName = this.getPlayerTwoName();
     return playerOneName.length > 0 && playerTwoName.length > 0;
-  },
-  setInputsDisabled(inputsDisabled) {
-    this.set('inputsDisabled', inputsDisabled);
-  },
-  inputsAreDisabled() {
-    return this.get('inputsDisabled');
   }
-
 });

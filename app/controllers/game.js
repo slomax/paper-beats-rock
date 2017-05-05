@@ -44,10 +44,17 @@ export default Ember.Controller.extend({
 
   handleChoice(choice) {
     const game = this.getGameRecord();
-    this.saveActivePlayerMessage(choice);
+    this.setActivePlayerMessage(choice);
     this.saveActivePlayerChoice(choice);
     //start timer and handle timeout
   },
+
+  gameStartedChanged: Ember.observer('model.gameStarted', function() {
+    const game = this.getGameRecord();
+    if(game.isGameStarted() && this.getPlayerOneIsActive()) {
+      this.startGame();
+    }
+  }),
 
   saveActivePlayerChoice(choice) {
     const game = this.getGameRecord();
@@ -78,7 +85,6 @@ export default Ember.Controller.extend({
     } else {
       this.setPlayerTwoMessage(message);
     }
-    game.save();
   },
 
   getPlayerOneIsActive() {
