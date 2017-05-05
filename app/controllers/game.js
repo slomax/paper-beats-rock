@@ -46,7 +46,7 @@ export default Ember.Controller.extend({
 
   gameStartedChanged: Ember.observer('model.gameStarted', function() {
     const game = this.getGameRecord();
-    if(game.isGameStarted() && this.getPlayerOneIsActive()) {
+    if(game.isGameStarted() && this.isPlayerOneActive()) {
       this.startGame();
     }
   }),
@@ -55,7 +55,7 @@ export default Ember.Controller.extend({
     const game = this.getGameRecord();
     if( game.isGameStarted() && game.getTimer() === 0) {
       this.set('showStatus', true);
-      this.updateStatusWithResult()
+      this.updateStatusWithResult();
     } else {
       this.set('showStatus', false);
     }
@@ -65,7 +65,7 @@ export default Ember.Controller.extend({
     const game = this.getGameRecord(),
           playerOneChoice = game.getPlayerOneChoice(),
           playerTwoChoice = game.getPlayerTwoChoice(),
-          playerOneIsActive = this.getPlayerOneIsActive(),
+          playerOneIsActive = this.isPlayerOneActive(),
       //TODO: couldn't access gameRules when I defined it as a const?
           gameRules = {
             [ROCK] : SCISSORS,
@@ -125,7 +125,7 @@ export default Ember.Controller.extend({
 
   saveActivePlayerChoice(choice) {
     const game = this.getGameRecord();
-    if(this.getPlayerOneIsActive()) {
+    if(this.isPlayerOneActive()) {
       game.setPlayerOneChoice(choice);
     } else {
       game.setPlayerTwoChoice(choice);
@@ -147,14 +147,14 @@ export default Ember.Controller.extend({
   },
 
   setActivePlayerMessage(message) {
-    if(this.getPlayerOneIsActive()) {
+    if(this.isPlayerOneActive()) {
       this.setPlayerOneMessage(message);
     } else {
       this.setPlayerTwoMessage(message);
     }
   },
 
-  getPlayerOneIsActive() {
+  isPlayerOneActive() {
     return this.get('playerOneIsActive');
   },
 
