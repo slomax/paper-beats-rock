@@ -53,13 +53,55 @@ export default Ember.Controller.extend({
 
   timerChanged: Ember.observer('model.timer', function() {
     const game = this.getGameRecord();
-    if(game.getTimer() === 0) {
+    if( game.isGameStarted() && game.getTimer() === 0) {
       this.set('showStatus', true);
-      this.set('status', 'result!');
+      this.updateStatusWithResult()
     } else {
       this.set('showStatus', false);
     }
   }),
+
+  updateStatusWithResult() {
+    const game = this.getGameRecord(),
+          playerOneChoice = game.getPlayerOneChoice(),
+          playerTwoChoice = game.getPlayerTwoChoice(),
+          playerOneIsActive = this.getPlayerOneIsActive(),
+      //TODO: couldn't access gameRules when I defined it as a const?
+          gameRules = {
+            [ROCK] : SCISSORS,
+            [PAPER] : ROCK,
+            [SCISSORS] : PAPER
+          };
+    let playerOneWon = false,
+        playersTied = false;
+
+    if(gameRules[playerOneChoice] === playerTwoChoice) {
+      playerOneWon = true;
+    } else if (playerOneChoice === playerTwoChoice) {
+      playersTied = true;
+    } else {
+      playerOneWon = false;
+    }
+    //todo: create setStatus
+    if(playersTied) {
+      this.set('status', 'TIE!');
+    } else {
+      if(playerOneIsActive) {
+        if(playerOneWon) {
+          this.set('status', 'YOU WON!');
+        } else {
+          this.set('status', 'YOU LOST!');
+        }
+      } else {
+        if(playerOneWon) {
+          this.set('status', 'YOU LOST!');
+        } else {
+          this.set('status', 'YOU WON!');
+        }
+      }
+    }
+
+  },
 
   handleChoice(choice) {
     const game = this.getGameRecord();
