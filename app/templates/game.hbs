@@ -20,7 +20,11 @@
         {{/if}}
       </div>
       <div class="layout-column flex" style="text-align:center">
-        {{model.timer}}
+        {{#if showStatus}}
+          {{status}}
+        {{else}}
+          {{model.timer}}
+        {{/if}}
       </div>
       <div class="layout-column flex" style="text-align:right">
         {{#if model.playerTwoName}}

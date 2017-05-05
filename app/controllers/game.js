@@ -14,6 +14,8 @@ export default Ember.Controller.extend({
   playerOneMessage: '',
   playerTwoMessage: '',
   playerOneIsActive: false,
+  showStatus: true,
+  status: 'VS',
 
   actions: {
     joinGame() {
@@ -49,6 +51,15 @@ export default Ember.Controller.extend({
     }
   }),
 
+  timerChanged: Ember.observer('model.timer', function() {
+    const game = this.getGameRecord();
+    if(game.getTimer() === 0) {
+      this.set('showStatus', true);
+    } else {
+      this.set('showStatus', false);
+    }
+  }),
+
   handleChoice(choice) {
     const game = this.getGameRecord();
     this.disableInputs();
@@ -56,12 +67,16 @@ export default Ember.Controller.extend({
     this.saveActivePlayerChoice(choice);
     if(game.bothPlayersHaveChosen()) {
       game.setTimer(3);
+      game.save();
+      this.set('showStatus', false);
       const timerInterval = setInterval(() => {
         const newTimer = game.getTimer() - 1;
         game.setTimer(newTimer);
         game.save()
         if(newTimer === 0) {
           clearInterval(timerInterval);
+          this.set('showStatus', true);
+          this.set('status', 'result!');
         }
       }, 1000);
     }
