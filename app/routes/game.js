@@ -19,6 +19,7 @@ export default Ember.Route.extend({
     controller.set('showNameDialog', true);
     controller.set('currentPlayerName', '');
     controller.set('inputsDisabled', true);
+    controller.set('playerOneIsActive', false);
 
   }
 });

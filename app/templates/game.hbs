@@ -34,6 +34,16 @@
         {{/if}}
       </div>
     </div>
+    <div class="layout-row">
+      <div class="layout-column flex" style="text-align:left">
+        {{playerOneMessage}}
+      </div>
+      <div class="layout-column flex" style="text-align:center">
+      </div>
+      <div class="layout-column flex" style="text-align:right">
+        {{playerTwoMessage}}
+      </div>
+    </div>
   {{/card.content}}
   {{#card.actions}}
     {{#paper-button disabled=inputsDisabled raised=true}}ROCK{{/paper-button}}
