@@ -8,7 +8,8 @@ const NEW_GAME_CONFIG = {
   playerOneChoice: '',
   playerTwoChoice: '',
   timer: 0,
-  gameStarted: false
+  gameStarted: false,
+  inputsDisabled: true
 }
 
 export default Ember.Controller.extend({

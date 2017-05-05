@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
 const AWAITING_INPUT = 'Enter your choice!'
+const ROCK = "ROCK";
+const PAPER = "PAPER";
+const SCISSORS = "SCISSORS";
 
 export default Ember.Controller.extend({
 
@@ -27,7 +30,33 @@ export default Ember.Controller.extend({
     },
     closeDialog() {
       this.resetNameDialog();
+    },
+    handleRockClick() {
+      this.handleChoice(ROCK);
+    },
+    handlePaperClick() {
+      this.handleChoice(PAPER);
+    },
+    handleScissorsClick() {
+      this.handleChoice(SCISSORS);
     }
+  },
+
+  handleChoice(choice) {
+    const game = this.getGameRecord();
+    this.saveActivePlayerMessage(choice);
+    this.saveActivePlayerChoice(choice);
+    //start timer and handle timeout
+  },
+
+  saveActivePlayerChoice(choice) {
+    const game = this.getGameRecord();
+    if(this.getPlayerOneIsActive()) {
+      game.setPlayerOneChoice(choice);
+    } else {
+      game.setPlayerTwoChoice(choice);
+    }
+    game.save();
   },
 
   determineIfPlayerOneIsActive() {
@@ -44,11 +73,16 @@ export default Ember.Controller.extend({
   },
 
   setActivePlayerMessage(message) {
-    if(this.get('playerOneIsActive')) {
+    if(this.getPlayerOneIsActive()) {
       this.setPlayerOneMessage(message);
     } else {
       this.setPlayerTwoMessage(message);
     }
+    game.save();
+  },
+
+  getPlayerOneIsActive() {
+    return this.get('playerOneIsActive');
   },
 
   saveGameRecordWithNewPlayer() {
