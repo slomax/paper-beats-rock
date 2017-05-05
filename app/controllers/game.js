@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
   usernameTextFieldValue: '',
   showNameDialog: true,
   currentPlayerName: '',
+  inputsDisabled: true,
 
   actions: {
     joinGame() {

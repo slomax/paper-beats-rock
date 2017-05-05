@@ -36,9 +36,9 @@
     </div>
   {{/card.content}}
   {{#card.actions}}
-    {{#paper-button raised=true}}ROCK{{/paper-button}}
-    {{#paper-button raised=true}}PAPER{{/paper-button}}
-    {{#paper-button raised=true}}SCISSORS{{/paper-button}}
+    {{#paper-button disabled=inputsDisabled raised=true}}ROCK{{/paper-button}}
+    {{#paper-button disabled=inputsDisabled raised=true}}PAPER{{/paper-button}}
+    {{#paper-button disabled=inputsDisabled raised=true}}SCISSORS{{/paper-button}}
   {{/card.actions}}
 {{/paper-card}}
 {{#if showNameDialog }}
