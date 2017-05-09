@@ -8,6 +8,12 @@ const SCISSORS = "SCISSORS";
 const INITIAL_STATUS = 'VS';
 const WAITING = 'Waiting for other player.';
 
+const gameRules = {
+  [ROCK] : SCISSORS,
+  [PAPER] : ROCK,
+  [SCISSORS] : PAPER
+};
+
 export default Ember.Controller.extend({
 
   usernameTextFieldValue: '',
@@ -152,13 +158,8 @@ export default Ember.Controller.extend({
     const game = this.getGameRecord(),
           playerOneChoice = game.getPlayerOneChoice(),
           playerTwoChoice = game.getPlayerTwoChoice(),
-          playerOneIsActive = this.isPlayerOneActive(),
-      //TODO: couldn't access gameRules when I defined it as a const?
-          gameRules = {
-            [ROCK] : SCISSORS,
-            [PAPER] : ROCK,
-            [SCISSORS] : PAPER
-          };
+          playerOneIsActive = this.isPlayerOneActive();
+
     let playerOneWon = false,
         playersTied = false;
 
