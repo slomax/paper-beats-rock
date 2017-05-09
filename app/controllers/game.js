@@ -8,6 +8,10 @@ const SCISSORS = "SCISSORS";
 const INITIAL_STATUS = 'VS';
 const WAITING = 'Waiting for other player.';
 
+const TIE = 'TIE!';
+const YOU_WON = 'YOU WON!';
+const YOU_LOST = 'YOU LOST!';
+
 const gameRules = {
   [ROCK] : SCISSORS,
   [PAPER] : ROCK,
@@ -153,45 +157,55 @@ export default Ember.Controller.extend({
     this.setActivePlayerMessage(AWAITING_INPUT);
   },
 
-  //TODO: refactor this horrible function
   updateStatusWithResult() {
     const game = this.getGameRecord(),
           playerOneChoice = game.getPlayerOneChoice(),
           playerTwoChoice = game.getPlayerTwoChoice(),
-          playerOneIsActive = this.isPlayerOneActive();
+          playersTied = playerOneChoice === playerTwoChoice;
 
-    let playerOneWon = false,
-        playersTied = false;
-
-    if(gameRules[playerOneChoice] === playerTwoChoice) {
-      playerOneWon = true;
-    } else if (playerOneChoice === playerTwoChoice) {
-      playersTied = true;
-    } else {
-      playerOneWon = false;
-    }
-    //todo: create setStatus
     if(playersTied) {
-      this.set('status', 'TIE!');
+      this.setStatus(TIE);
     } else {
-      if(playerOneIsActive) {
-        if(playerOneWon) {
-          this.set('status', 'YOU WON!');
-          this.incrementProperty('playerOneScore');
-        } else {
-          this.incrementProperty('playerTwoScore');
-          this.set('status', 'YOU LOST!');
-        }
+      this.updateGameResults();
+    }
+  },
+
+  updateGameResults() {
+    const playerOneIsActive = this.isPlayerOneActive(),
+          playerOneWon = this.determineIfPlayerOneWon();
+    if(playerOneIsActive) {
+      if(playerOneWon) {
+        this.setStatus(YOU_WON);
+        this.incrementPlayerOneScore();
       } else {
-        if(playerOneWon) {
-          this.set('status', 'YOU LOST!');
-          this.incrementProperty('playerOneScore');
-        } else {
-          this.set('status', 'YOU WON!');
-          this.incrementProperty('playerTwoScore');
-        }
+        this.incrementPlayerTwoScore();
+        this.setStatus(YOU_LOST);
+      }
+    } else {
+      if(playerOneWon) {
+        this.setStatus(YOU_LOST);
+        this.incrementPlayerOneScore();
+      } else {
+        this.setStatus(YOU_WON);
+        this.incrementPlayerTwoScore();
       }
     }
+  },
+
+  updateGameResultsForActivePlayer() {
+    const playerOneIsActive = this.isPlayerOneActive(),
+          playerOneWon = this.determineIfPlayerOneWon();
+    let scoreToIncrement
+    if(playerOneIsActive) {
+
+    }
+  },
+
+  determineIfPlayerOneWon() {
+    const game = this.getGameRecord(),
+          playerOneChoice = game.getPlayerOneChoice(),
+          playerTwoChoice = game.getPlayerTwoChoice();
+    return gameRules[playerOneChoice] === playerTwoChoice;
   },
 
   handleChoice(choice) {
@@ -312,6 +326,14 @@ export default Ember.Controller.extend({
 
   setPlayerTwoMessage(message) {
     this.set('playerTwoMessage', message);
+  },
+
+  incrementPlayerOneScore() {
+    this.incrementProperty('playerOneScore');
+  },
+
+  incrementPlayerTwoScore() {
+    this.incrementProperty('playerTwoScore');
   }
 
 });
