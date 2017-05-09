@@ -53,5 +53,8 @@ export default DS.Model.extend({
     const playerOneChoice = this.getPlayerOneChoice(),
           playerTwoChoice = this.getPlayerTwoChoice();
     return playerOneChoice.length > 0 && playerTwoChoice.length > 0;
+  },
+  bothPlayerChoicesAreEmpty() {
+    return this.getPlayerOneChoice().length == 0 && this.getPlayerTwoChoice().length === 0
   }
 });

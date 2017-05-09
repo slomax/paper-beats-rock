@@ -5,6 +5,9 @@ const ROCK = "ROCK";
 const PAPER = "PAPER";
 const SCISSORS = "SCISSORS";
 
+const INITIAL_STATUS = 'VS';
+const WAITING = 'Waiting for other player.';
+
 export default Ember.Controller.extend({
 
   usernameTextFieldValue: '',
@@ -15,7 +18,7 @@ export default Ember.Controller.extend({
   playerTwoMessage: '',
   playerOneIsActive: false,
   showStatus: true,
-  status: 'VS',
+  status: INITIAL_STATUS,
   showPlayAgainButton: false,
   playerOneScore: 0,
   playerTwoScore: 0,
@@ -34,16 +37,16 @@ export default Ember.Controller.extend({
     },
     handlePlayAgain() {
       const game = this.getGameRecord();
-      this.set('showPlayAgainButton', false);
+      this.hidePlayAgainButton();
       this.resetActivePlayerChoice();
-      this.setInactivePlayerMessage('');
-      this.set('status', 'VS');
+      this.clearInactivePlayerMessage();
+      this.resetStatus();
       game.save();
-      if(game.getPlayerOneChoice().length == 0 && game.getPlayerTwoChoice().length === 0) {
+      if(game.bothPlayerChoicesAreEmpty()) {
         this.enableInputs();
         this.setActivePlayerMessage(AWAITING_INPUT);
       } else {
-        this.setActivePlayerMessage('Waiting for other player.');
+        this.setActivePlayerMessage(WAITING);
       }
     },
     closeDialog() {
@@ -199,6 +202,10 @@ export default Ember.Controller.extend({
     }
   },
 
+  clearInactivePlayerMessage() {
+    this.setInactivePlayerMessage('');
+  },
+
   setInactivePlayerMessage(message) {
     if(this.isPlayerOneActive()) {
       this.setPlayerTwoMessage(message);
@@ -284,6 +291,22 @@ export default Ember.Controller.extend({
 
   disableInputs() {
     this.set('inputsDisabled', true);
+  },
+
+  resetStatus() {
+    this.setStatus(INITIAL_STATUS);
+  },
+
+  setStatus(status) {
+    this.set('status', status);
+  },
+
+  showPlayAgainButton() {
+    this.set('showPlayAgainButton', true);
+  },
+
+  hidePlayAgainButton() {
+    this.set('showPlayAgainButton', false);
   }
 
 });
