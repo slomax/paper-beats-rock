@@ -47,6 +47,16 @@
         {{playerTwoMessage}}
       </div>
     </div>
+    <div class="layout-row">
+      <div class="layout-column flex" style="text-align:left">
+        Score: {{playerOneScore}}
+      </div>
+      <div class="layout-column flex" style="text-align:center">
+      </div>
+      <div class="layout-column flex" style="text-align:right">
+        Score: {{playerTwoScore}}
+      </div>
+    </div>
   {{/card.content}}
   {{#card.actions}}
     {{#paper-button disabled=inputsDisabled raised=true onClick=(action "handleRockClick")}}ROCK{{/paper-button}}

@@ -17,6 +17,8 @@ export default Ember.Controller.extend({
   showStatus: true,
   status: 'VS',
   showPlayAgainButton: false,
+  playerOneScore: 0,
+  playerTwoScore: 0,
 
   actions: {
     joinGame() {
@@ -25,7 +27,6 @@ export default Ember.Controller.extend({
       this.saveUserNameTextAsCurrentPlayerName();
       this.determineIfPlayerOneIsActive();
       this.resetNameDialog();
-
       const game = this.getGameRecord();
       if(game.isGameStarted()) {
         this.startGame();
@@ -35,6 +36,7 @@ export default Ember.Controller.extend({
       const game = this.getGameRecord();
       this.set('showPlayAgainButton', false);
       this.resetActivePlayerChoice();
+      this.setInactivePlayerMessage('');
       this.set('status', 'VS');
       game.save();
       if(game.getPlayerOneChoice().length == 0 && game.getPlayerTwoChoice().length === 0) {
@@ -129,14 +131,18 @@ export default Ember.Controller.extend({
       if(playerOneIsActive) {
         if(playerOneWon) {
           this.set('status', 'YOU WON!');
+          this.incrementProperty('playerOneScore');
         } else {
+          this.incrementProperty('playerTwoScore');
           this.set('status', 'YOU LOST!');
         }
       } else {
         if(playerOneWon) {
           this.set('status', 'YOU LOST!');
+          this.incrementProperty('playerOneScore');
         } else {
           this.set('status', 'YOU WON!');
+          this.incrementProperty('playerTwoScore');
         }
       }
     }
