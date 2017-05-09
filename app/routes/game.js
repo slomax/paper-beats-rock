@@ -16,12 +16,18 @@ export default Ember.Route.extend({
   //this seems to work.
   setupController(controller, model) {
     this._super(controller, model);
+    controller.set('usernameTextFieldValue', '');
     controller.set('showNameDialog', true);
     controller.set('currentPlayerName', '');
-    controller.set('inputsDisabled', true);
+    controller.set('inputsDisabled',  true);
+    controller.set('playerOneMessage',  '');
+    controller.set('playerTwoMessage',  '');
     controller.set('playerOneIsActive', false);
-    controller.set('status', 'VS');
+    controller.set('showStatus', true);
+    controller.set('status',  'VS');
     controller.set('showPlayAgainButton', false);
-    controller.set('showStatus', true);11111
+    controller.set('playerOneScore', 0);
+    controller.set('playerTwoScore', 0);
+
   }
 });
