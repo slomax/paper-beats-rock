@@ -105,6 +105,48 @@ export default Ember.Controller.extend({
     }
   }),
 
+  saveGameRecordWithNewPlayer() {
+    const game = this.getGameRecord(),
+      newPlayerName = this.getUsernameTextFieldValue();
+    if(this.gameHasFirstPlayer()) {
+      game.setPlayerTwoName(newPlayerName);
+      game.setGameHasStarted(true);
+    } else {
+      game.setPlayerOneName(newPlayerName);
+    }
+    game.save();
+  },
+
+  saveGameRecordWithNewStatus() {
+    const game = this.getGameRecord(),
+      gameShouldStart = game.bothPlayersExist();
+    game.setGameHasStarted(gameShouldStart);
+    game.save();
+  },
+
+  saveUserNameTextAsCurrentPlayerName() {
+    const usernameTextFieldValue = this.getUsernameTextFieldValue();
+    this.set('currentPlayerName', usernameTextFieldValue);
+  },
+
+  determineIfPlayerOneIsActive() {
+    const game = this.getGameRecord(),
+      currentPlayerName = this.getCurrentPlayerName(),
+      playerOneName = game.getPlayerOneName(),
+      playerOneIsActive = (currentPlayerName === playerOneName);
+    this.set('playerOneIsActive', playerOneIsActive);
+  },
+
+  resetNameDialog() {
+    this.clearUsernameTextFieldValue();
+    this.hideNameDialog();
+  },
+
+  startGame() {
+    this.enableInputs();
+    this.setActivePlayerMessage(AWAITING_INPUT);
+  },
+
   //TODO: refactor this horrible function
   updateStatusWithResult() {
     const game = this.getGameRecord(),
@@ -181,19 +223,6 @@ export default Ember.Controller.extend({
     game.save();
   },
 
-  determineIfPlayerOneIsActive() {
-    const game = this.getGameRecord(),
-          currentPlayerName = this.getCurrentPlayerName(),
-          playerOneName = game.getPlayerOneName(),
-          playerOneIsActive = (currentPlayerName === playerOneName);
-    this.set('playerOneIsActive', playerOneIsActive);
-  },
-
-  startGame() {
-    this.enableInputs();
-    this.setActivePlayerMessage(AWAITING_INPUT);
-  },
-
   setActivePlayerMessage(message) {
     if(this.isPlayerOneActive()) {
       this.setPlayerOneMessage(message);
@@ -204,14 +233,6 @@ export default Ember.Controller.extend({
 
   clearInactivePlayerMessage() {
     this.setInactivePlayerMessage('');
-  },
-
-  setInactivePlayerMessage(message) {
-    if(this.isPlayerOneActive()) {
-      this.setPlayerTwoMessage(message);
-    } else {
-      this.setPlayerOneMessage(message);
-    }
   },
 
   resetActivePlayerChoice() {
@@ -227,42 +248,9 @@ export default Ember.Controller.extend({
     return this.get('playerOneIsActive');
   },
 
-  saveGameRecordWithNewPlayer() {
-    const game = this.getGameRecord(),
-          newPlayerName = this.get('usernameTextFieldValue');
-    if(this.gameHasFirstPlayer()) {
-      game.setPlayerTwoName(newPlayerName);
-      game.setGameHasStarted(true);
-    } else {
-      game.setPlayerOneName(newPlayerName);
-    }
-    game.save();
-  },
-
-  saveGameRecordWithNewStatus() {
-    const game = this.getGameRecord(),
-          gameShouldStart = game.bothPlayersExist();
-    game.setGameHasStarted(gameShouldStart);
-    game.save();
-  },
-
   gameHasFirstPlayer() {
     const game = this.getGameRecord();
     return game.getPlayerOneName().length > 0;
-  },
-
-  getGameRecord() {
-    return this.get('model');
-  },
-
-  saveUserNameTextAsCurrentPlayerName() {
-    const usernameTextFieldValue = this.get('usernameTextFieldValue');
-    this.set('currentPlayerName', usernameTextFieldValue);
-  },
-
-  resetNameDialog() {
-    this.clearUsernameTextFieldValue();
-    this.hideNameDialog();
   },
 
   clearUsernameTextFieldValue() {
@@ -271,18 +259,6 @@ export default Ember.Controller.extend({
 
   hideNameDialog() {
     this.set('showNameDialog', false);
-  },
-
-  setPlayerOneMessage(message) {
-    this.set('playerOneMessage', message);
-  },
-
-  setPlayerTwoMessage(message) {
-    this.set('playerTwoMessage', message);
-  },
-
-  getCurrentPlayerName() {
-    return this.get('currentPlayerName');
   },
 
   enableInputs() {
@@ -297,16 +273,44 @@ export default Ember.Controller.extend({
     this.setStatus(INITIAL_STATUS);
   },
 
-  setStatus(status) {
-    this.set('status', status);
-  },
-
   showPlayAgainButton() {
     this.set('showPlayAgainButton', true);
   },
 
   hidePlayAgainButton() {
     this.set('showPlayAgainButton', false);
+  },
+
+  getGameRecord() {
+    return this.get('model');
+  },
+
+  getCurrentPlayerName() {
+    return this.get('currentPlayerName');
+  },
+
+  getUsernameTextFieldValue() {
+    return this.get('usernameTextFieldValue');
+  },
+
+  setInactivePlayerMessage(message) {
+    if(this.isPlayerOneActive()) {
+      this.setPlayerTwoMessage(message);
+    } else {
+      this.setPlayerOneMessage(message);
+    }
+  },
+
+  setStatus(status) {
+    this.set('status', status);
+  },
+
+  setPlayerOneMessage(message) {
+    this.set('playerOneMessage', message);
+  },
+
+  setPlayerTwoMessage(message) {
+    this.set('playerTwoMessage', message);
   }
 
 });
