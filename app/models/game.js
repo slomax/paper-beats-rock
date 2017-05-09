@@ -6,7 +6,7 @@ export default DS.Model.extend({
   playerOneChoice: DS.attr('string'),
   playerTwoChoice: DS.attr('string'),
   timer: DS.attr('number'),
-  gameStarted: DS.attr('boolean')
+  gameStarted: DS.attr('boolean'),
 
   setPlayerOneName(playerOneName) {
     this.set('playerOneName', playerOneName);

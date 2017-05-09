@@ -35,6 +35,7 @@ export default Ember.Controller.extend({
       const game = this.getGameRecord();
       this.set('showPlayAgainButton', false);
       this.resetActivePlayerChoice();
+      this.set('status', 'VS');
       game.save();
       if(game.getPlayerOneChoice().length == 0 && game.getPlayerTwoChoice().length === 0) {
         this.enableInputs();
@@ -91,6 +92,8 @@ export default Ember.Controller.extend({
     if( game.isGameStarted() && game.getTimer() === 0) {
       this.set('showStatus', true);
       this.updateStatusWithResult();
+      const inactivePlayerChoice = this.isPlayerOneActive() ? game.getPlayerTwoChoice() : game.getPlayerOneChoice();
+      this.setInactivePlayerMessage(inactivePlayerChoice);
       this.set('showPlayAgainButton', true);
     } else {
       this.set('showStatus', false);
@@ -137,7 +140,6 @@ export default Ember.Controller.extend({
         }
       }
     }
-
   },
 
   handleChoice(choice) {
@@ -188,6 +190,14 @@ export default Ember.Controller.extend({
       this.setPlayerOneMessage(message);
     } else {
       this.setPlayerTwoMessage(message);
+    }
+  },
+
+  setInactivePlayerMessage(message) {
+    if(this.isPlayerOneActive()) {
+      this.setPlayerTwoMessage(message);
+    } else {
+      this.setPlayerOneMessage(message);
     }
   },
 
